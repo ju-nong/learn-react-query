@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+header {
+    border-bottom: 2px solid #d8dee4;
+    a {
+        margin-bottom: -2px;
+        padding: 0px 8px;
+        border-bottom: 2px solid transparent;
+
+        &.active {
+            border-bottom-color: #fd8c73;
+        }
+    }
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0px 20px;
+}
+
+.list-container {
+    > li {
+        border-bottom: 1px solid #d7d8db;
+        &:last-child {
+            border-bottom: 0px;
+        }
+    }
+}
+
+.stars-container {
+    button,
+    details > summary {
+        background-color: #f6f8fa;
+        border: 1px solid #d6d8db;
+        border-radius: 0.375rem;
+        padding: 0px 12px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        line-height: 32px;
+
+        &:hover {
+            background-color: #f3f4f6;
+        }
+
+        &:active {
+            background-color: #ebecf0;
+        }
+    }
+
+    details {
+        position: relative;
+        summary {
+            cursor: pointer;
+
+            &::marker {
+                content: "";
+            }
+
+            svg {
+                display: inline-block;
+                margin-left: 8px;
+                vertical-align: text-top;
+            }
+        }
+
+        ul {
+            position: absolute;
+            top: 100%;
+            left: 100%;
+            margin: 8px 0px;
+            width: 300px;
+            border-radius: 6px;
+            border: 1px solid #d6d8db;
+            background-color: #fff;
+            transform: translateX(-100%);
+
+            li {
+                cursor: pointer;
+                padding: 7px 16px;
+                border-bottom: 1px solid #d7d8db;
+                font-size: 12px;
+                font-weight: 500;
+
+                &:last-child {
+                    border-bottom: 0px;
+                }
+
+                &:hover {
+                    background-color: #f4f6f8;
+                }
+
+                svg {
+                    margin-right: 8px;
+                    display: inline-block;
+                    visibility: hidden;
+
+                    &.show {
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .stars-container {
+        > div:nth-child(1) {
+            flex-direction: column;
+
+            > div {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+            }
+        }
+    }
+}
