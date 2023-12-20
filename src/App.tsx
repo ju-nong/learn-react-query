@@ -14,7 +14,6 @@ function App() {
                 <Outlet />
             </main>
             <ReactQueryDevtools
-                initialIsOpen={false}
                 closeButtonProps={{
                     style: {
                         left: "unset",

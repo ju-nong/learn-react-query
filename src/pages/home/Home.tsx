@@ -1,7 +1,12 @@
 import React from "react";
+import { Profile } from "../../components/home";
 
 function Home() {
-    return <div className="text-center">홈이요</div>;
+    return (
+        <div>
+            <Profile />
+        </div>
+    );
 }
 
 export { Home as default };
