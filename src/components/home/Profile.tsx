@@ -18,13 +18,13 @@ type Profile = {
 };
 
 async function fetchProfile(login: string) {
-    const reponse = await fetch(`https://api.github.com/users/${login}`);
+    const response = await fetch(`https://api.github.com/users/${login}`);
 
-    if (!reponse.ok) {
+    if (!response.ok) {
         throw new Error("ERROR");
     }
 
-    return await reponse.json();
+    return await response.json();
 }
 
 function Profile({ login }: ProfileProps) {

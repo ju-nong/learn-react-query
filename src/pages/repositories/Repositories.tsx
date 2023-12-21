@@ -6,11 +6,11 @@ import {
 } from "../../components/repositories";
 
 async function fetchRepositories(): Promise<RepositoryItemProps[]> {
-    const reponse = await fetch(
+    const response = await fetch(
         `https://api.github.com/users/ju-nong/repos?sort=updated`,
     );
 
-    return await reponse.json();
+    return await response.json();
 }
 
 function Repositories() {

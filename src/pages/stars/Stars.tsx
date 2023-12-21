@@ -8,9 +8,11 @@ import {
 } from "../../components/stars";
 
 async function fetchStars(): Promise<StarItemProps[]> {
-    const reponse = await fetch(`https://api.github.com/users/ju-nong/starred`);
+    const response = await fetch(
+        `https://api.github.com/users/ju-nong/starred`,
+    );
 
-    return await reponse.json();
+    return await response.json();
 }
 
 function Stars() {
