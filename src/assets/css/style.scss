@@ -28,6 +28,25 @@ main {
     padding: 0px 20px;
 }
 
+button,
+details > summary {
+    background-color: #f6f8fa;
+    border: 1px solid #d6d8db;
+    border-radius: 0.375rem;
+    padding: 0px 12px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 32px;
+
+    &:hover {
+        background-color: #f3f4f6;
+    }
+
+    &:active {
+        background-color: #ebecf0;
+    }
+}
+
 .list-container {
     > li {
         border-bottom: 1px solid #d7d8db;
@@ -38,25 +57,6 @@ main {
 }
 
 .stars-container {
-    button,
-    details > summary {
-        background-color: #f6f8fa;
-        border: 1px solid #d6d8db;
-        border-radius: 0.375rem;
-        padding: 0px 12px;
-        font-weight: 600;
-        font-size: 0.875rem;
-        line-height: 32px;
-
-        &:hover {
-            background-color: #f3f4f6;
-        }
-
-        &:active {
-            background-color: #ebecf0;
-        }
-    }
-
     details {
         position: relative;
         summary {
