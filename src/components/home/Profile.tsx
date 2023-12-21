@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 
 type ProfileProps = {
-    login?: string;
+    login: string;
 };
 
 type Profile = {
@@ -17,28 +17,35 @@ type Profile = {
     blog: string;
 };
 
-function Profile({ login = "ju-nong" }: ProfileProps) {
-    async function fetchProfile() {
-        const reponse = await fetch(`https://api.github.com/users/${login}`);
+async function fetchProfile(login: string) {
+    const reponse = await fetch(`https://api.github.com/users/${login}`);
 
-        return await reponse.json();
+    if (!reponse.ok) {
+        throw new Error("ERROR");
     }
 
+    return await reponse.json();
+}
+
+function Profile({ login }: ProfileProps) {
     const { data, isFetching, isError, refetch } = useQuery<Profile>(
         ["profile", login],
-        fetchProfile,
+        () => fetchProfile(login),
         {
             refetchOnMount: false,
             refetchOnWindowFocus: false,
+            retry: false,
+            staleTime: Infinity,
+            cacheTime: Infinity,
         },
     );
 
     if (isFetching) {
-        return <div>Loading...</div>;
+        return <div className="profile-container text-center">Loading...</div>;
     }
 
     if (isError) {
-        return <div>Error!</div>;
+        return <div className="profile-container text-center">Error!</div>;
     }
 
     if (data) {
