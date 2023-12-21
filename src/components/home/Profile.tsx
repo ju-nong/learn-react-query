@@ -45,7 +45,9 @@ function Profile({ login }: ProfileProps) {
     }
 
     if (isError) {
-        return <div className="profile-container text-center">Error!</div>;
+        return (
+            <div className="profile-container text-center">Not Found 404!</div>
+        );
     }
 
     if (data) {
@@ -75,6 +77,7 @@ function Profile({ login }: ProfileProps) {
                         {login}
                     </span>
                 </div>
+                <button onClick={() => refetch()}>Refetch</button>
                 {bio ? (
                     <div>
                         <p>{bio}</p>
