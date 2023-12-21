@@ -18,7 +18,9 @@ type ProfileResponse = {
 };
 
 async function fetchProfile(login: string) {
-    const reponse = await fetch(`https://api.github.com/users/${login}`);
+    const reponse = await fetch(`https://api.github.com/users/${login}`, {
+        cache: "no-cache",
+    });
 
     if (!reponse.ok) {
         throw new Error("ERROR");
@@ -32,8 +34,6 @@ function Profile({ login }: ProfileProps) {
         ["profile", login],
         () => fetchProfile(login),
         {
-            refetchOnMount: false,
-            refetchOnWindowFocus: false,
             retry: false,
             staleTime: Infinity,
             cacheTime: Infinity,
