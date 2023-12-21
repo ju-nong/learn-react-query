@@ -5,7 +5,7 @@ type ProfileProps = {
     login: string;
 };
 
-type Profile = {
+type ProfileResponse = {
     avatar_url: string;
     name: string | null;
     bio: string | null;
@@ -18,17 +18,17 @@ type Profile = {
 };
 
 async function fetchProfile(login: string) {
-    const response = await fetch(`https://api.github.com/users/${login}`);
+    const reponse = await fetch(`https://api.github.com/users/${login}`);
 
-    if (!response.ok) {
+    if (!reponse.ok) {
         throw new Error("ERROR");
     }
 
-    return await response.json();
+    return await reponse.json();
 }
 
 function Profile({ login }: ProfileProps) {
-    const { data, isFetching, isError, refetch } = useQuery<Profile>(
+    const { data, isFetching, isError, refetch } = useQuery<ProfileResponse>(
         ["profile", login],
         () => fetchProfile(login),
         {

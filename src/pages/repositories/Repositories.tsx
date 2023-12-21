@@ -10,6 +10,10 @@ async function fetchRepositories(): Promise<RepositoryItemProps[]> {
         `https://api.github.com/users/ju-nong/repos?sort=updated`,
     );
 
+    if (!response.ok) {
+        throw new Error("ERROR");
+    }
+
     return await response.json();
 }
 
