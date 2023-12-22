@@ -6,11 +6,19 @@ import {
     StarList,
     StarItemProps,
 } from "../../components/stars";
+import { useQuery } from "react-query";
 
 async function fetchStars(): Promise<StarItemProps[]> {
     const response = await fetch(
         `https://api.github.com/users/ju-nong/starred`,
+        {
+            cache: "no-cache",
+        },
     );
+
+    if (!response.ok) {
+        throw new Error("ERROR");
+    }
 
     return await response.json();
 }
@@ -18,11 +26,22 @@ async function fetchStars(): Promise<StarItemProps[]> {
 function Stars() {
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const [loaded, setLoaded] = useState(false);
-    const [stars, setStars] = useState<StarItemProps[]>([]);
+    const { data, isFetching, isError } = useQuery<StarItemProps[]>(
+        "stars",
+        fetchStars,
+        {
+            retry: false,
+            staleTime: 60000,
+            cacheTime: 60000,
+        },
+    );
 
     const searched = useMemo(() => {
-        let _stars = stars;
+        if (!data) {
+            return [];
+        }
+
+        let _stars = data;
 
         const keyword = searchParams.get("keyword");
         if (keyword) {
@@ -55,19 +74,10 @@ function Stars() {
             }
         }
 
+        console.log(_stars);
+
         return _stars;
-    }, [stars, searchParams]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const star = await fetchStars();
-
-            setStars(star);
-            setLoaded(true);
-        };
-
-        fetchData();
-    }, []);
+    }, [data, isFetching, searchParams]);
 
     function handleSubmit(keyword: string) {
         const params = Object.fromEntries(searchParams.entries());
@@ -89,9 +99,17 @@ function Stars() {
                 <SearchBar onSubmit={handleSubmit} />
                 <SelectBoxContainer onClick={handleSetCategory} />
             </div>
-            {loaded ? <StarList list={searched} /> : null}
+            {isFetching ? (
+                <div>Loading...</div>
+            ) : isError ? (
+                <div>X__X Error!</div>
+            ) : (
+                <StarList list={searched} />
+            )}
         </div>
     );
+
+    // return (
 }
 
 export { Stars as default };
