@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
     SearchBar,
@@ -108,8 +108,6 @@ function Stars() {
             )}
         </div>
     );
-
-    // return (
 }
 
 export { Stars as default };
